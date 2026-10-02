@@ -4,29 +4,18 @@ import '../data.dart';
 import '../favorite_store.dart';
 import '../widgets/menu_image.dart';
 import 'detail_page.dart';
-import 'profile_page.dart';
 
-/// Halaman Home / Katalog Menu.
-///
-/// Menampilkan seluruh menu Gacoan dengan `ListView`, menyediakan fitur
-/// pencarian, filter kategori, dan favorite sebagai bonus.
-class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.username, required this.fullName});
-
-  /// Username hasil login, diteruskan dari halaman Login.
-  final String username;
-
-  /// Nama lengkap pengguna dari data akun.
-  final String fullName;
+class DaftarProduk extends StatefulWidget {
+  const DaftarProduk({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DaftarProduk> createState() => _DaftarProdukState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DaftarProdukState extends State<DaftarProduk> {
   final TextEditingController _searchController = TextEditingController();
   String _query = "";
-  String _selectedCategory = "Semua";
+  String _selectedCategory = "Running";
 
   static const String _allCategory = "Semua";
 
@@ -35,14 +24,14 @@ class _HomePageState extends State<HomePage> {
     ...menuCategories,
   ];
 
-  List<Menu> get _filteredMenus {
+  List<Shoe> get _filteredMenus {
     final String keyword = _query.trim().toLowerCase();
-    return menus.where((Menu menu) {
+    return menus.where((Shoe menu) {
       final bool matchCategory =
           _selectedCategory == _allCategory || menu.category == _selectedCategory;
       final bool matchSearch =
           keyword.isEmpty ||
-          menu.name.toLowerCase().contains(keyword) ||
+          menu.shoeName.toLowerCase().contains(keyword) ||
           menu.category.toLowerCase().contains(keyword);
       return matchCategory && matchSearch;
     }).toList();
@@ -54,7 +43,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  void _openDetail(Menu menu) {
+  void _openDetail(Shoe menu) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (BuildContext context) => DetailPage(menu: menu),
@@ -62,51 +51,14 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _openProfile() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) => ProfilePage(
-          username: widget.username,
-          fullName: widget.fullName,
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    final List<Menu> visibleMenus = _filteredMenus;
+    final List<Shoe> visibleMenus = _filteredMenus;
 
     return Scaffold(
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text("Gacoan", style: TextStyle(fontSize: 20)),
-            Text(
-              "Halo, ${widget.username}!",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.normal,
-                color: Theme.of(context).colorScheme.onPrimary.withValues(
-                  alpha: 0.85,
-                ),
-              ),
-            ),
-          ],
-        ),
-        actions: <Widget>[
-          IconButton(
-            onPressed: _openProfile,
-            tooltip: "Profil",
-            icon: const Icon(Icons.person_outline),
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _openProfile,
-        icon: const Icon(Icons.account_circle),
-        label: const Text("Profil"),
+          title: const Text("Home")
       ),
       body: Column(
         children: <Widget>[
@@ -117,7 +69,7 @@ class _HomePageState extends State<HomePage> {
               textInputAction: TextInputAction.search,
               onChanged: (String value) => setState(() => _query = value),
               decoration: InputDecoration(
-                hintText: "Cari menu Gacoan...",
+                hintText: "Cari menu Sepatu...",
                 prefixIcon: const Icon(Icons.search),
                 isDense: true,
                 filled: true,
@@ -201,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 96),
                     itemCount: visibleMenus.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final Menu menu = visibleMenus[index];
+                      final Shoe menu = visibleMenus[index];
                       return _MenuCard(
                         menu: menu,
                         onTap: () => _openDetail(menu),
@@ -218,7 +170,7 @@ class _HomePageState extends State<HomePage> {
 class _MenuCard extends StatelessWidget {
   const _MenuCard({required this.menu, required this.onTap});
 
-  final Menu menu;
+  final Shoe menu;
   final VoidCallback onTap;
 
   @override
@@ -234,7 +186,7 @@ class _MenuCard extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Row(
+          child: Column(
             children: <Widget>[
               Hero(
                 tag: "menu-image-${menu.id}",
@@ -251,7 +203,7 @@ class _MenuCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      menu.name,
+                      menu.shoeName,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -279,7 +231,7 @@ class _MenuCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      formatRupiah(menu.price),
+                      menu.price,
                       style: theme.textTheme.titleSmall?.copyWith(
                         color: theme.colorScheme.primary,
                         fontWeight: FontWeight.bold,

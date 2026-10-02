@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:testing_lat_kuis/Root.dart';
 
 import '../data.dart';
 import '../favorite_store.dart';
-import 'home_page.dart';
 
 /// Halaman Login.
 ///
@@ -31,13 +31,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  /// Mengisi form dengan akun demo sehingga mudah diuji.
-  void _fillDemoAccount() {
-    setState(() {
-      _usernameController.text = user1.username;
-      _passwordController.text = user1.password;
-    });
-  }
 
   void _login() {
     FocusScope.of(context).unfocus();
@@ -49,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         ..showSnackBar(
           const SnackBar(
             content: Text("Username dan password wajib diisi"),
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.blue,
           ),
         );
       return;
@@ -71,13 +64,13 @@ class _LoginPageState extends State<LoginPage> {
         _isLoading = false;
       });
 
-      if (username != user1.username || password != user1.password) {
+      if (username != user.username || password != user.password) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
           ..showSnackBar(
             const SnackBar(
               content: Text("Username atau password salah"),
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.blue,
             ),
           );
         return;
@@ -86,11 +79,11 @@ class _LoginPageState extends State<LoginPage> {
       // Login berhasil: reset favorite lalu arahkan ke Home.
       FavoriteStore.reset();
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute<void>(
+        MaterialPageRoute(
           builder: (BuildContext context) =>
-              HomePage(username: username, fullName: user1.name),
+              RootPage(user : user),
         ),
-        (Route<dynamic> route) => false,
+        (route) => false,
       );
     });
   }
@@ -162,8 +155,6 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     onFieldSubmitted: (String value) => _login(),
                   ),
-                  const SizedBox(height: 12),
-                  _DemoAccountHint(onTap: _fillDemoAccount),
                   const SizedBox(height: 24),
                   SizedBox(
                     height: 52,
@@ -205,34 +196,25 @@ class _LoginHeader extends StatelessWidget {
           builder: (BuildContext context, double value, Widget? child) {
             return Transform.scale(scale: value, child: child);
           },
-          child: Container(
-            height: 108,
-            width: 108,
-            decoration: BoxDecoration(
-              color: const Color(0xFFD32F2F),
-              borderRadius: BorderRadius.circular(32),
-              boxShadow: const <BoxShadow>[
-                BoxShadow(
-                  color: Color(0x33D32F2F),
-                  blurRadius: 18,
-                  offset: Offset(0, 8),
-                ),
-              ],
+          child: SizedBox(
+            height: 200,
+            width: 200,
+            child: Image.network(
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Q8Ls4f_a0MIqSmz9Zj_GHOB7GvBslkNbESYWMzd9mw&s=10",
+              fit: BoxFit.cover,
             ),
-            child: const Icon(Icons.ramen_dining, size: 60, color: Colors.white),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Text(
-          "Gacoan",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: const Color(0xFFD32F2F),
           ),
         ),
         const SizedBox(height: 4),
         Text(
-          "Katalog Menu Gacoan",
+          "Selamat Datang di Toko Sepatu",
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Colors.grey.shade700,
+          ),
+        ),
+         const SizedBox(height: 4),
+        Text(
+          "Selamat Belanja",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.grey.shade700,
           ),
@@ -242,37 +224,3 @@ class _LoginHeader extends StatelessWidget {
   }
 }
 
-class _DemoAccountHint extends StatelessWidget {
-  const _DemoAccountHint({required this.onTap});
-
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: const Color(0xFFFFF3E0),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: const Color(0xFFFFE0B2)),
-        ),
-        child: Row(
-          children: <Widget>[
-            const Icon(Icons.info_outline, color: Color(0xFFEF6C00), size: 20),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                "Akun demo: ${user1.username} / ${user1.password}\n"
-                "Ketuk untuk mengisi otomatis",
-                style: const TextStyle(fontSize: 12, color: Color(0xFFE65100)),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

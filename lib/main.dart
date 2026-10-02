@@ -9,13 +9,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  /// Warna utama aplikasi mengikuti identitas Gacoan (merah).
-  static const Color brandColor = Color(0xFFD32F2F);
+  static const Color brandColor = Colors.blue;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Katalog Menu Gacoan",
+      title: "Katalog Menu Sepatu",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,

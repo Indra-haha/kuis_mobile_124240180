@@ -1,12 +1,3 @@
-/// Model data untuk aplikasi Katalog Menu Gacoan.
-///
-/// Struktur model ini mengikuti model pada repository acuan
-/// https://github.com/ZakinandaFaishal/latkuis/blob/main/data.dart
-/// dan dikembangkan agar siap dipakai pada halaman Login, Home,
-/// Detail Menu, dan Profil.
-library;
-
-/// Model data user (akun) Gacoan.
 class User {
   String username;
   String password;
@@ -15,150 +6,170 @@ class User {
   User({required this.username, required this.password, required this.name});
 }
 
-/// Akun demo yang dapat dipakai untuk masuk ke aplikasi.
-User user1 = User(username: "admingacoan", password: "1221", name: "Jokowi");
+User user = User(username: "indra", password: "180", name: "Indra Suryanto");
 
-/// Model data menu Gacoan.
-class Menu {
+class Shoe {
   int id;
-  String name;
+  String shoeName;
   String category;
   String description;
-
-  /// Harga menu dalam satuan Rupiah (tanpa titik pemisah).
-  int price;
-
-  /// Nama file gambar pada folder `assets/images`.
+  String price;
   String image;
+  int likes;
+  int stock;
+  List sizes;
 
-  /// Level kepedasan 0 (tidak pedas) sampai 3 (ekstra pedas).
-  int spicyLevel;
-
-  Menu({
+  Shoe({
     required this.id,
-    required this.name,
+    required this.shoeName,
     required this.category,
     required this.description,
     required this.price,
     required this.image,
-    this.spicyLevel = 0,
+    required this.likes,
+    required this.stock,
+    required this.sizes,
   });
-
-  /// Label level kepedasan yang mudah dibaca pengguna.
-  String get spicyLabel {
-    switch (spicyLevel) {
-      case 1:
-        return "Level 1 - Sedang";
-      case 2:
-        return "Level 2 - Pedas";
-      case 3:
-        return "Level 3 - Extra Pedas";
-      default:
-        return "Tidak Pedas";
-    }
-  }
 }
+final List<Shoe> menus = [
+  Shoe(
+    id: 201,
+    shoeName: "Urban Runner X1",
+    category: "Running",
+    price: "Rp799.000",
+    image:
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+    description:
+        "Sepatu running ringan dengan desain modern yang nyaman digunakan untuk aktivitas sehari-hari.",
+    likes: 34,
+    stock: 24,
+    sizes: ["39", "40", "41", "42", "43"],
+  ),
 
-/// Daftar seluruh menu Gacoan yang ditampilkan pada halaman katalog.
-final List<Menu> menus = [
-  Menu(
-    id: 1,
-    name: "Mie Gacoan",
-    category: "Mie",
-    price: 12000,
-    image: "assets/images/mie_gacoan.jpg",
-    spicyLevel: 2,
+  Shoe(
+    id: 202,
+    shoeName: "Street Classic Low",
+    category: "Sneakers",
+    price: "Rp649.000",
+    image:
+        "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77",
     description:
-        "Mie ayam jahe khas Gacoan dengan potongan ayam, kembang goyang, "
-        "serta kaldu jahe yang gurih. Tersedia level kepedasan 0 sampai 3.",
+        "Sneakers bergaya klasik dengan desain sederhana yang cocok dipadukan dengan berbagai outfit.",
+    likes: 48,
+    stock: 31,
+    sizes: ["39", "40", "41", "42", "43", "44"],
   ),
-  Menu(
-    id: 2,
-    name: "Mie Hompimpa",
-    category: "Mie",
-    price: 12000,
-    image: "assets/images/mie_aceh.jpg",
-    spicyLevel: 2,
+
+  Shoe(
+    id: 203,
+    shoeName: "Velocity Pro",
+    category: "Running",
+    price: "Rp1.199.000",
+    image:
+        "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2",
     description:
-        "Mie bergaya Aceh dengan cita rasa kaldu bening dan potongan daging "
-        "yang menggugah selera. Cocok dicocolkan dengan kerupuk.",
+        "Sepatu performa tinggi dengan konstruksi ringan untuk mendukung aktivitas olahraga dan lari.",
+    likes: 56,
+    stock: 17,
+    sizes: ["40", "41", "42", "43", "44"],
   ),
-  Menu(
-    id: 3,
-    name: "Mie Suit",
-    category: "Mie",
-    price: 12000,
-    image: "assets/images/mie_suit.jpg",
-    spicyLevel: 1,
+
+  Shoe(
+    id: 204,
+    shoeName: "Court Max",
+    category: "Basketball",
+    price: "Rp1.499.000",
+    image:
+        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111",
     description:
-        "Mie dengan cita rasa gurih yang lebih ringan dan tidak terlalu "
-        "pedas. Cocok untuk kamu yang menyukai rasa gurih tanpa terlalu pedas.",
+        "Sepatu basketball dengan desain sporty dan sol yang dirancang untuk memberikan kestabilan.",
+    likes: 67,
+    stock: 14,
+    sizes: ["40", "41", "42", "43", "44"],
   ),
-  Menu(
-    id: 4,
-    name: "Udang Keju",
-    category: "Dimsum",
-    price: 12000,
-    image: "assets/images/udang_keju.jpg",
-    spicyLevel: 0,
+
+  Shoe(
+    id: 205,
+    shoeName: "Daily Walk",
+    category: "Lifestyle",
+    price: "Rp549.000",
+    image:
+        "https://images.unsplash.com/photo-1495555961986-6d4c1ecb7be3",
     description:
-        "Dimsum udang dengan isian keju creamy yang gurih, dibungkus kulit "
-        "pangsit tipis dan dikukus sampai matang sempurna.",
+        "Sepatu casual yang ringan dan nyaman untuk digunakan berjalan maupun aktivitas sehari-hari.",
+    likes: 29,
+    stock: 38,
+    sizes: ["38", "39", "40", "41", "42"],
   ),
-  Menu(
-    id: 5,
-    name: "Udang Rambutan",
-    category: "Dimsum",
-    price: 12000,
-    image: "assets/images/udang_rambutan.jpg",
-    spicyLevel: 0,
+
+  Shoe(
+    id: 206,
+    shoeName: "Retro Court 90",
+    category: "Sneakers",
+    price: "Rp899.000",
+    image:
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772",
     description:
-        "Dimsum udang dengan tekstur kulit yang renyah dan rasa udang segar "
-        "di setiap gigitannya. Favorit pelanggan kami.",
+        "Sneakers bergaya retro dengan kombinasi warna klasik dan desain yang timeless.",
+    likes: 45,
+    stock: 21,
+    sizes: ["39", "40", "41", "42", "43"],
   ),
-  Menu(
-    id: 6,
-    name: "Pangsit Goreng",
-    category: "Dimsum",
-    price: 12000,
-    image: "assets/images/pangsit_goreng.jpg",
-    spicyLevel: 1,
+
+  Shoe(
+    id: 207,
+    shoeName: "Trail Explorer",
+    category: "Outdoor",
+    price: "Rp1.299.000",
+    image:
+        "https://images.unsplash.com/photo-1551698618-1dfe5d97d256",
     description:
-        "Pangsit goreng dengan tekstur renyah dan gurih, diisi daging "
-        "cincang kecap manis. Cocok menjadi teman ngobrol sore.",
+        "Sepatu outdoor dengan desain kokoh yang cocok digunakan untuk aktivitas di berbagai medan.",
+    likes: 38,
+    stock: 16,
+    sizes: ["40", "41", "42", "43", "44"],
   ),
-  Menu(
-    id: 7,
-    name: "Es Gobak Sodor",
-    category: "Minuman",
-    price: 9000,
-    image: "assets/images/es_gobak_sodor.jpg",
-    spicyLevel: 0,
+
+  Shoe(
+    id: 208,
+    shoeName: "Cloud Step",
+    category: "Running",
+    price: "Rp949.000",
+    image:
+        "https://images.unsplash.com/photo-1552346154-21d32810aba3",
     description:
-        "Minuman dingin khas Gacoan yang menyegarkan dengan cita rasa "
-        "manis dan sedikit asam, dicampur es serut dan nata de coco.",
+        "Sepatu dengan bantalan empuk untuk memberikan kenyamanan saat berjalan dan berlari.",
+    likes: 52,
+    stock: 27,
+    sizes: ["39", "40", "41", "42", "43"],
   ),
-  Menu(
-    id: 8,
-    name: "Es Teklek",
-    category: "Minuman",
-    price: 9000,
-    image: "assets/images/es_teklek.jpg",
-    spicyLevel: 0,
+
+  Shoe(
+    id: 209,
+    shoeName: "Street Flex",
+    category: "Lifestyle",
+    price: "Rp699.000",
+    image:
+        "https://images.unsplash.com/photo-1520256862855-398228c41684",
     description:
-        "Minuman es warna-warni khas Gacoan berisi jelly, nata de coco, "
-        "serta campuran buah yang menyegarkan.",
+        "Sepatu lifestyle dengan desain minimalis yang cocok digunakan untuk aktivitas santai.",
+    likes: 31,
+    stock: 33,
+    sizes: ["39", "40", "41", "42", "43"],
   ),
-  Menu(
-    id: 9,
-    name: "Es Tea",
-    category: "Minuman",
-    price: 6000,
-    image: "assets/images/es_tea.jpg",
-    spicyLevel: 0,
+
+  Shoe(
+    id: 210,
+    shoeName: "Power Dunk",
+    category: "Basketball",
+    price: "Rp1.399.000",
+    image:
+        "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0",
     description:
-        "Es teh segar dengan cita rasa manis yang menyegarkan, pilihan "
-        "teh original untuk menyertai hidangan berat Gacoan.",
+        "Sepatu basketball dengan desain sporty untuk menunjang pergerakan selama bermain.",
+    likes: 61,
+    stock: 12,
+    sizes: ["40", "41", "42", "43", "44"],
   ),
 ];
 
@@ -172,14 +183,3 @@ List<String> get menuCategories {
 }
 
 /// Mengubah angka menjadi format Rupiah, contoh: 12000 menjadi Rp12.000.
-String formatRupiah(int value) {
-  final String digits = value.toString();
-  final StringBuffer buffer = StringBuffer();
-  for (int i = 0; i < digits.length; i++) {
-    if (i > 0 && (digits.length - i) % 3 == 0) {
-      buffer.write(".");
-    }
-    buffer.write(digits[i]);
-  }
-  return "Rp$buffer";
-}

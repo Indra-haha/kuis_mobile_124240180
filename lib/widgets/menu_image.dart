@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../data.dart';
 
-/// Widget gambar menu yang aman digunakan untuk aplikasi.
-///
-/// Mengandung placeholder saat gambar masih dimuat maupun saat gagal dimuat,
-/// sehingga aplikasi tidak pernah crash walaupun gambar tidak tersedia.
 class MenuImage extends StatelessWidget {
   const MenuImage({
     super.key,
@@ -15,14 +11,14 @@ class MenuImage extends StatelessWidget {
     this.borderRadius,
   });
 
-  final Menu menu;
+  final Shoe menu;
   final double? width;
   final double? height;
   final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
-    final Widget image = Image.asset(
+    final Widget image = Image.network(
       menu.image,
       width: width,
       height: height,
