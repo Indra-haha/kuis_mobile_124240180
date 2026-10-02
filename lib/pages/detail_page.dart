@@ -104,33 +104,13 @@ class _DetailPageState extends State<DetailPage> {
                     highlight: true,
                   ),
                   const SizedBox(height: 12),
-                  Column(
-                    children: [
-                      _InfoRow(
-                        icon: Icons.category_outlined,
-                        label: "Jumlah Produk",
-                        value: "",
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Text(
-                            "Like ${menu.likes}",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "Stock ${menu.stock}",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  _InfoRow(
+                    icon: Icons.favorite_border,
+                    label: "Jumlah Produk",
+                    value: "Like ${menu.likes} | Stock ${menu.stock}",
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _InfoRow(
                         icon: Icons.category_outlined,
@@ -138,26 +118,10 @@ class _DetailPageState extends State<DetailPage> {
                         value: "",
                       ),
                       const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          ListView.builder(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            itemCount: menu.sizes.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              final String size = menu.sizes[index];
-                              return SizedBox(
-                                width: 2,
-                                height: 2,
-                                child: Text(
-                                  size,
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: menu.sizes.map((size) => Chip(label: Text(size.toString()))).toList(),
                       ),
                     ],
                   ),

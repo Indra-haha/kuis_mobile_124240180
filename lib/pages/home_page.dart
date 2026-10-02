@@ -92,6 +92,7 @@ class _DaftarProdukState extends State<DaftarProduk> {
           ),
           SizedBox(
             height: 52,
+            width: double.infinity,
             child: ListView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -186,7 +187,8 @@ class _MenuCard extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(10),
-          child: Column(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Hero(
                 tag: "menu-image-${menu.id}",

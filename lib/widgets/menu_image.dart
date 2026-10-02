@@ -23,6 +23,20 @@ class MenuImage extends StatelessWidget {
       width: width,
       height: height,
       fit: BoxFit.cover,
+      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+        if (loadingProgress == null) return child;
+        return Container(
+          width: width,
+          height: height,
+          color: Colors.grey.shade200,
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(
+            value: loadingProgress.expectedTotalBytes != null
+                ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                : null,
+          ),
+        );
+      },
       errorBuilder: (BuildContext context, Object error, StackTrace? stack) {
         return _Fallback(width: width, height: height);
       },

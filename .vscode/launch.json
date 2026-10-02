@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "kuis_mobile_124240180 (Flutter profile mode)",
+            "program": "lib/main.dart",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        }
+    ]
+}

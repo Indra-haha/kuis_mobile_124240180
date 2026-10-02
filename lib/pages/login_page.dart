@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:testing_lat_kuis/Root.dart';
+import '../root_page.dart';
 
 import '../data.dart';
 import '../favorite_store.dart';
@@ -202,6 +202,21 @@ class _LoginHeader extends StatelessWidget {
             child: Image.network(
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9Q8Ls4f_a0MIqSmz9Zj_GHOB7GvBslkNbESYWMzd9mw&s=10",
               fit: BoxFit.cover,
+              errorBuilder: (BuildContext context, Object error, StackTrace? stack) {
+                return Container(
+                  color: const Color(0xFFFFE3E3),
+                  alignment: Alignment.center,
+                  child: const Icon(Icons.shopping_bag, color: Color(0xFFD32F2F), size: 64),
+                );
+              },
+              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  color: Colors.grey.shade100,
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator(),
+                );
+              },
             ),
           ),
         ),
